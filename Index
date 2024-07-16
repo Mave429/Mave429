@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spin Wheel</title>
+    <style>
+        canvas {
+            border: 1px solid #d3d3d3;
+        }
+        #spinButton {
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Winwheel.js/2.7.0/Winwheel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <button id="spinButton">Spin the Wheel!</button>
+    <script>
+        let theWheel = new Winwheel({
+            'numSegments'    : 8,                
+            'outerRadius'    : 200,              
+            'segments'       : [
+                {'fillStyle' : '#eae56f', 'text' : 'Prize 1'},
+                {'fillStyle' : '#89f26e', 'text' : 'Prize 2'},
+                {'fillStyle' : '#7de6ef', 'text' : 'Prize 3'},
+                {'fillStyle' : '#e7706f', 'text' : 'Prize 4'},
+                {'fillStyle' : '#eae56f', 'text' : 'Prize 5'},
+                {'fillStyle' : '#89f26e', 'text' : 'Prize 6'},
+                {'fillStyle' : '#7de6ef', 'text' : 'Prize 7'},
+                {'fillStyle' : '#e7706f', 'text' : 'Prize 8'}
+            ],
+            'animation' : {
+                'type'     : 'spinToStop',
+                'duration' : 5,
+                'spins'    : 8,
+                'callbackFinished' : 'alertPrize()'
+            }
+        });
+
+        function alertPrize() {
+            let winningSegment = theWheel.getIndicatedSegment();
+            alert("You won " + winningSegment.text + "!");
+        }
+
+        document.getElementById('spinButton').addEventListener('click', () => {
+            theWheel.startAnimation();
+        });
+    </script>
+</body>
+</html>
